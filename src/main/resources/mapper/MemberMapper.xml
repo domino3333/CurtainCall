@@ -8,4 +8,8 @@
         values(#{name},#{id},#{password},#{email},#{dateOfBirth},#{gender})
     </insert>
 
+    <select id="isAlreadyExistedId" resultType="integer">
+        select COUNT(*) from where id = #{id}
+    </select>
+
 </mapper>

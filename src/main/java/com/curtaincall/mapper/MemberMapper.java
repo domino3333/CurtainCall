@@ -7,4 +7,7 @@ public interface MemberMapper {
 
 
     void signUp(Member member);
+
+    Integer isAlreadyExistedId(String id);
+
 }
