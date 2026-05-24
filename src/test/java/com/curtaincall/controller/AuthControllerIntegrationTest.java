@@ -1,14 +1,14 @@
 package com.curtaincall.controller;
 
+import com.curtaincall.mapper.MemberMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -20,22 +20,29 @@ public class AuthControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private MemberMapper memberMapper;
+
     @Test
     void 이미_가입된_id로_회원가입하면_실패한다() throws Exception {
 
         String id = "testid_" + System.nanoTime();
 
-        //같은 id로 첫 회원가입 -> 성공해야 함
+        assertThat(memberMapper.isAlreadyExistedId(id)).isEqualTo(0);
+
         mockMvc.perform(post("/api/member")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(signUpJson(id, id + "1@test.com")))
+                .content(signUpJson(id,id+"1@test.com")))
                 .andExpect(status().isOk());
 
-        //같은 id로 두 번째 회원가입 -> 실패해야 함
+        assertThat(memberMapper.isAlreadyExistedId(id)).isEqualTo(1);
+
         mockMvc.perform(post("/api/member")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(signUpJson(id, id + "1@test.com")))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(signUpJson(id,id+"2@test.com")))
                 .andExpect(status().isConflict());
+
+        assertThat(memberMapper.isAlreadyExistedId(id)).isEqualTo(1);
 
     }
 
