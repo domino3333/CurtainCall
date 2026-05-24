@@ -9,7 +9,7 @@
     </insert>
 
     <select id="isAlreadyExistedId" resultType="integer">
-        select COUNT(*) from where id = #{id}
+        select COUNT(*) from member where id = #{id}
     </select>
 
 </mapper>

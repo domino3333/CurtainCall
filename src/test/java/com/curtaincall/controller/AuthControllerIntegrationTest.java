@@ -26,7 +26,7 @@ public class AuthControllerIntegrationTest {
     @Test
     void 이미_가입된_id로_회원가입하면_실패한다() throws Exception {
 
-        String id = "testid_" + System.nanoTime();
+        String id = "testid_" + System.currentTimeMillis();
 
         assertThat(memberMapper.isAlreadyExistedId(id)).isEqualTo(0);
 
