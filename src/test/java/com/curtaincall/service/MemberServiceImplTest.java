@@ -26,6 +26,8 @@ public class MemberServiceImplTest {
     @InjectMocks
     private MemberServiceImpl memberService;
 
+
+    //service에서 mapper까지 그 사이에 넘어간 인자들이 잘 넘어갔는지 확인하는 단위테스트
     @Test
     void signUp(){
         SignUpRequest request = new SignUpRequest();
