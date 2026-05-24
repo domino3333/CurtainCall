@@ -18,5 +18,5 @@ public class Member {
     private String email;
     private LocalDate dateOfBirth;
     private String gender;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 }
