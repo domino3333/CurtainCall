@@ -4,7 +4,7 @@
 
 
     <insert id="signUp">
-        insert into member(name,id,password,email.date_of_birth,gender)
+        insert into member(name,id,password,email,date_of_birth,gender)
         values(#{name},#{id},#{password},#{email},#{dateOfBirth},#{gender})
     </insert>
 
