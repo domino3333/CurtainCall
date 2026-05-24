@@ -3,5 +3,9 @@
 <mapper namespace="com.curtaincall.mapper.MemberMapper">
 
 
+    <insert id="signUp">
+        insert into member(name,id,password,email.date_of_birth,gender)
+        values(#{name},#{id},#{password},#{email},#{dateOfBirth},#{gender})
+    </insert>
 
 </mapper>

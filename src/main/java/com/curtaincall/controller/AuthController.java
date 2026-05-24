@@ -2,6 +2,7 @@ package com.curtaincall.controller;
 
 
 import com.curtaincall.dto.SignUpRequest;
+import com.curtaincall.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
 
-
     @PostMapping
     public ResponseEntity<?> signUp(@RequestBody SignUpRequest request){
+
+
 
 
         return null;
