@@ -13,7 +13,7 @@ public class PerformanceController {
 
     private final PerformanceService performanceService;
 
-    @GetMapping("/api/performance/test")
+    @GetMapping("/api/performance/list")
     public AreaPerformanceResponse getPerform(){
         return performanceService.getPerformanceApiTest();
     }
