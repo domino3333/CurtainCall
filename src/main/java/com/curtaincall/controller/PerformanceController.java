@@ -15,6 +15,8 @@ public class PerformanceController {
 
     @GetMapping("/api/performance/list")
     public AreaPerformanceResponse getPerform(){
-        
+        //todo 메서드 이름 변경하고
+        // 데이터 구조 파악하기
+
     }
 }
