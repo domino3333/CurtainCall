@@ -15,6 +15,6 @@ public class PerformanceController {
 
     @GetMapping("/api/performance/list")
     public AreaPerformanceResponse getPerform(){
-        return performanceService.getPerformanceApiTest();
+        
     }
 }
