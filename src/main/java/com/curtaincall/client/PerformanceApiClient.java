@@ -29,7 +29,7 @@ public class PerformanceApiClient {
     public AreaPerformanceResponse fetchRegionalCultureInfo(){
         String encodedKey = URLEncoder.encode(serviceKey, StandardCharsets.UTF_8);
 
-        String url = "https://apis.data.go.kr/B553457/cultureinfo/area2"
+        String url = baseUrl + "/area2"
                 + "?serviceKey=" + encodedKey
                 + "&PageNo=1"
                 + "&numOfrows=10";
