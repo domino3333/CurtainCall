@@ -4,5 +4,5 @@ import com.curtaincall.dto.performance.area.AreaPerformanceResponse;
 
 public interface PerformanceService {
 
-    AreaPerformanceResponse getPerformanceApiTest();
+    AreaPerformanceResponse getRegionalCultureInfo();
 }

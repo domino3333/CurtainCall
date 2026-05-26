@@ -14,7 +14,7 @@ public class PerformanceServiceImpl implements PerformanceService {
 
 
     @Override
-    public AreaPerformanceResponse getPerformanceApiTest() {
+    public AreaPerformanceResponse getRegionalCultureInfo() {
         return performanceApiClient.fetchRegionalCultureInfo();
     }
 }
