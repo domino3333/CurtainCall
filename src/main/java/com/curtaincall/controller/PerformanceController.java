@@ -1,6 +1,7 @@
 package com.curtaincall.controller;
 
 
+import com.curtaincall.dto.performance.area.AreaPerformanceResponse;
 import com.curtaincall.service.PerformanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,7 @@ public class PerformanceController {
     private final PerformanceService performanceService;
 
     @GetMapping("/api/performance/test")
-    public String getPerform(){
+    public AreaPerformanceResponse getPerform(){
         return performanceService.getPerformanceApiTest();
     }
 }

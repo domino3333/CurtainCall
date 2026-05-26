@@ -1,6 +1,8 @@
 package com.curtaincall.service;
 
+import com.curtaincall.dto.performance.area.AreaPerformanceResponse;
+
 public interface PerformanceService {
 
-    String getPerformanceApiTest();
+    AreaPerformanceResponse getPerformanceApiTest();
 }

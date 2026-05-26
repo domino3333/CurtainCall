@@ -1,6 +1,8 @@
 package com.curtaincall.client;
 
 
+import com.curtaincall.dto.performance.area.AreaPerformanceResponse;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -24,7 +26,7 @@ public class PerformanceApiClient {
 
 
     //지역별 문화정보 조회 api
-    public String fetchRegionalCultureInfo(){
+    public AreaPerformanceResponse fetchRegionalCultureInfo(){
         String encodedKey = URLEncoder.encode(serviceKey, StandardCharsets.UTF_8);
 
         String url = "https://apis.data.go.kr/B553457/cultureinfo/area2"
@@ -37,7 +39,14 @@ public class PerformanceApiClient {
                 .retrieve()
                 .body(byte[].class);
 
-        return new String(responseBytes,StandardCharsets.UTF_8);
+        String xml = new String(responseBytes,StandardCharsets.UTF_8);
+
+        try{
+            XmlMapper xmlMapper =new XmlMapper();
+            return xmlMapper.readValue(xml,AreaPerformanceResponse.class);
+        }catch(Exception e){
+            throw new RuntimeException("지역별 공연정보 xml 파싱 실패",e);
+        }
 
     }
 }

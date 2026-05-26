@@ -1,6 +1,7 @@
 package com.curtaincall.service.Impl;
 
 import com.curtaincall.client.PerformanceApiClient;
+import com.curtaincall.dto.performance.area.AreaPerformanceResponse;
 import com.curtaincall.service.PerformanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class PerformanceServiceImpl implements PerformanceService {
 
 
     @Override
-    public String getPerformanceApiTest() {
+    public AreaPerformanceResponse getPerformanceApiTest() {
         return performanceApiClient.fetchRegionalCultureInfo();
     }
 }
