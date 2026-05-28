@@ -2,6 +2,7 @@ package com.curtaincall.client;
 
 
 import com.curtaincall.dto.performance.area.AreaPerformanceResponse;
+import com.curtaincall.dto.performance.detail.PerformanceDetailResponse;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +26,9 @@ public class PerformanceApiClient {
     private String serviceKey;
 
 
-    //지역별 문화정보 조회 api
+    /**
+     * 지역별 문화정보 조회 api
+     * */
     public AreaPerformanceResponse fetchRegionalCultureInfo(){
         String encodedKey = URLEncoder.encode(serviceKey, StandardCharsets.UTF_8);
 
@@ -49,4 +52,37 @@ public class PerformanceApiClient {
         }
 
     }
+
+    /**
+     * 문화 정보 상세 조회 api
+     * */
+    public PerformanceDetailResponse fetchPerformanceDetail(String seq) {
+        String encodedKey = URLEncoder.encode(serviceKey, StandardCharsets.UTF_8);
+
+        String url = baseUrl + "/detail2"
+                + "?serviceKey=" + encodedKey
+                + "&seq=" + seq;
+
+        byte[] responseBytes = restClient.get()
+                .uri(URI.create(url))
+                .retrieve()
+                .body(byte[].class);
+
+        String xml = new String(responseBytes, StandardCharsets.UTF_8);
+
+        try {
+            XmlMapper xmlMapper = new XmlMapper();
+            return xmlMapper.readValue(xml, PerformanceDetailResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("공연 상세정보 xml 파싱 실패", e);
+        }
+    }
+
+
+
+
+
+
+
+
 }
