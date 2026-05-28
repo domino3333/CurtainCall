@@ -2,9 +2,11 @@ package com.curtaincall.controller;
 
 
 import com.curtaincall.dto.performance.area.AreaPerformanceResponse;
+import com.curtaincall.dto.performance.detail.PerformanceDetailResponse;
 import com.curtaincall.service.PerformanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,9 +23,13 @@ public class PerformanceController {
     @GetMapping("/area")
     public AreaPerformanceResponse getRegionalCultureInfo(){
 
-        //todo 데이터 구조 파악하기
         return performanceService.getRegionalCultureInfo();
 
+    }
 
+    @GetMapping("/detail/{seq}")
+    public PerformanceDetailResponse getPerformanceDetail(@PathVariable Long seq){
+
+        return performanceService.getPerformanceDetail(seq);
     }
 }

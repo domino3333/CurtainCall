@@ -56,7 +56,7 @@ public class PerformanceApiClient {
     /**
      * 문화 정보 상세 조회 api
      * */
-    public PerformanceDetailResponse fetchPerformanceDetail(String seq) {
+    public PerformanceDetailResponse fetchPerformanceDetail(Long seq) {
         String encodedKey = URLEncoder.encode(serviceKey, StandardCharsets.UTF_8);
 
         String url = baseUrl + "/detail2"
