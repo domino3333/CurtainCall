@@ -8,6 +8,7 @@ public class AreaPerformanceBody {
 
     private Integer totalCount;
 
+
     @JacksonXmlProperty(localName = "PageNo")
     private Integer pageNo;
 
