@@ -2,5 +2,83 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.curtaincall.mapper.PerformanceMapper">
 
+    <insert id="upsertPerformance" parameterType="com.curtaincall.domain.Performance">
+        insert into performance(
+            seq,
+            service_name,
+            title,
+            start_date,
+            end_date,
+            place,
+            realm_name,
+            area,
+            sigungu,
+            thumbnail,
+            gps_x,
+            gps_y
+        )
+        values(
+            #{seq},
+            #{serviceName},
+            #{title},
+            #{startDate},
+            #{endDate},
+            #{place},
+            #{realmName},
+            #{area},
+            #{sigungu},
+            #{thumbnail},
+            #{gpsX},
+            #{gpsY}
+        )
+        on duplicate key update
+            service_name = values(service_name),
+            title = values(title),
+            start_date = values(start_date),
+            end_date = values(end_date),
+            place = values(place),
+            realm_name = values(realm_name),
+            area = values(area),
+            sigungu = values(sigungu),
+            thumbnail = values(thumbnail),
+            gps_x = values(gps_x),
+            gps_y = values(gps_y),
+            updated_at = current_timestamp
+    </insert>
+
+    <insert id="upsertPerformanceDetail" parameterType="com.curtaincall.domain.PerformanceDetail">
+        insert into performance_detail(
+            seq,
+            price,
+            contents,
+            url,
+            phone,
+            img_url,
+            place_url,
+            place_addr,
+            place_seq
+        )
+        values(
+            #{seq},
+            #{price},
+            #{contents},
+            #{url},
+            #{phone},
+            #{imgUrl},
+            #{placeUrl},
+            #{placeAddr},
+            #{placeSeq}
+        )
+        on duplicate key update
+            price = values(price),
+            contents = values(contents),
+            url = values(url),
+            phone = values(phone),
+            img_url = values(img_url),
+            place_url = values(place_url),
+            place_addr = values(place_addr),
+            place_seq = values(place_seq),
+            updated_at = current_timestamp
+    </insert>
 
 </mapper>
