@@ -81,4 +81,10 @@
             updated_at = current_timestamp
     </insert>
 
+    <select id="existsPerformanceDetail" resultType="int">
+        select count(*)
+        from performance_detail
+        where seq = #{seq}
+    </select>
+
 </mapper>

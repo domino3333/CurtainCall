@@ -95,6 +95,10 @@ public class PerformanceCollectServiceImpl implements PerformanceCollectService 
     private void savePerformance(PeriodPerformanceItem item) {
         performanceMapper.upsertPerformance(toPerformance(item));
 
+        if (performanceMapper.existsPerformanceDetail(item.getSeq()) > 0) {
+            return;
+        }
+
         PerformanceDetailResponse detailResponse = performanceApiClient.fetchPerformanceDetail(item.getSeq());
         PerformanceDetailItem detailItem = getDetailItem(detailResponse);
 
