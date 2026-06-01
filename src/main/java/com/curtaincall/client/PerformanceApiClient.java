@@ -3,6 +3,7 @@ package com.curtaincall.client;
 
 import com.curtaincall.dto.performance.area.AreaPerformanceResponse;
 import com.curtaincall.dto.performance.detail.PerformanceDetailResponse;
+import com.curtaincall.dto.performance.period.PeriodPerformanceResponse;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,6 +52,35 @@ public class PerformanceApiClient {
             throw new RuntimeException("지역별 공연정보 xml 파싱 실패",e);
         }
 
+    }
+
+    /**
+     * 기간별 문화정보 조회 api
+     * from, to는 yyyyMMdd 형식으로 넘긴다.
+     * */
+    public PeriodPerformanceResponse fetchPeriodCultureInfo(String from, String to, int pageNo, int numOfrows) {
+        String encodedKey = URLEncoder.encode(serviceKey, StandardCharsets.UTF_8);
+
+        String url = baseUrl + "/period2"
+                + "?serviceKey=" + encodedKey
+                + "&PageNo=" + pageNo
+                + "&numOfrows=" + numOfrows
+                + "&from=" + from
+                + "&to=" + to;
+
+        byte[] responseBytes = restClient.get()
+                .uri(URI.create(url))
+                .retrieve()
+                .body(byte[].class);
+
+        String xml = new String(responseBytes, StandardCharsets.UTF_8);
+
+        try {
+            XmlMapper xmlMapper = new XmlMapper();
+            return xmlMapper.readValue(xml, PeriodPerformanceResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("기간별 공연정보 xml 파싱 실패", e);
+        }
     }
 
     /**

@@ -8,4 +8,6 @@ public interface PerformanceService {
     AreaPerformanceResponse getRegionalCultureInfo();
 
     PerformanceDetailResponse getPerformanceDetail(Long seq);
+
+    
 }
