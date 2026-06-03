@@ -87,4 +87,101 @@
         where seq = #{seq}
     </select>
 
+    <select id="selectPerformances" resultType="Performance">
+        select
+            seq,
+            service_name,
+            title,
+            start_date,
+            end_date,
+            place,
+            realm_name,
+            area,
+            sigungu,
+            thumbnail,
+            gps_x,
+            gps_y
+        from performance
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (
+                    title like concat('%', #{keyword}, '%')
+                    or place like concat('%', #{keyword}, '%')
+                    or area like concat('%', #{keyword}, '%')
+                    or sigungu like concat('%', #{keyword}, '%')
+                    or realm_name like concat('%', #{keyword}, '%')
+                    or service_name like concat('%', #{keyword}, '%')
+                )
+            </if>
+            <if test="realm != null and realm != '' and realm != 'all'">
+                and (realm_name = #{realm} or service_name = #{realm})
+            </if>
+        </where>
+        order by
+            case
+                when end_date is null then 1
+                when end_date >= current_date then 0
+                else 1
+            end,
+            start_date asc,
+            seq desc
+        limit #{size}
+        offset #{offset}
+    </select>
+
+    <select id="countPerformances" resultType="int">
+        select count(*)
+        from performance
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (
+                    title like concat('%', #{keyword}, '%')
+                    or place like concat('%', #{keyword}, '%')
+                    or area like concat('%', #{keyword}, '%')
+                    or sigungu like concat('%', #{keyword}, '%')
+                    or realm_name like concat('%', #{keyword}, '%')
+                    or service_name like concat('%', #{keyword}, '%')
+                )
+            </if>
+            <if test="realm != null and realm != '' and realm != 'all'">
+                and (realm_name = #{realm} or service_name = #{realm})
+            </if>
+        </where>
+    </select>
+
+    <select id="selectRealms" resultType="string">
+        select realm_name
+        from performance
+        where realm_name is not null and realm_name != ''
+        group by realm_name
+        order by count(*) desc, realm_name asc
+    </select>
+
+    <select id="selectPerformanceDetail" resultType="PerformanceDetailView">
+        select
+            p.seq,
+            p.service_name,
+            p.title,
+            p.start_date,
+            p.end_date,
+            p.place,
+            p.realm_name,
+            p.area,
+            p.sigungu,
+            p.thumbnail,
+            p.gps_x,
+            p.gps_y,
+            d.price,
+            d.contents,
+            d.url,
+            d.phone,
+            d.img_url,
+            d.place_url,
+            d.place_addr,
+            d.place_seq
+        from performance p
+        left join performance_detail d on p.seq = d.seq
+        where p.seq = #{seq}
+    </select>
+
 </mapper>
